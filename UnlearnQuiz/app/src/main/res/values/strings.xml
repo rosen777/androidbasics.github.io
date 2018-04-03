@@ -1,0 +1,76 @@
+<resources>
+    <string name="app_name">QuizApp</string>
+
+    <!-- Question Titles -->
+    <string name="question1_title">Question 1</string>
+    <string name="question2_title">Question 2</string>
+    <string name="question3_title">Question 3</string>
+    <string name="question4_title">Question 4</string>
+    <string name="question5_title">Question 5</string>
+    <string name="question6_title">Question 6</string>
+    <string name="question7_title">Question 7</string>
+    <string name="question8_title">Question 8</string>
+
+    <!-- Question Texts -->
+
+    <string name="question1">1. Who said ‘Reverse the usual practice and you will almost always do right’?</string>
+    <string name="question2">2. Democracy’s virtue lies in the fact that it calls into activity:</string>
+    <string name="question3">3. In which of the following countries do women outnumber men:</string>
+    <string name="question4">4. What is the least bright of these stars in the night sky?</string>
+    <string name="question5">5. If ‘moolokarn’ means blue sky ‘wilkospadi’ means bicycle race ‘moolowilko’ means blue bicycle which word could mean "racecar"?</string>
+    <string name="question6">6. Which of the following animals has more than 1 heart:</string>
+    <string name="question7">7. How many days can a flu virus survive on money bills?</string>
+
+    <!-- Answers -->
+
+    <!-- Question 1 -->
+    <string name="question1_answer1">A) Gandhi</string>
+    <string name="question1_answer2">B) Rousseau</string>
+    <string name="question1_answer3">C) Dewey</string>
+    <string name="question1_answer4">D) Plato</string>
+
+    <!-- Question 2 -->
+    <string name="question2_answer1">A) The intelligence and character of ordinary men and women</string>
+    <string name="question2_answer2">B) The methods for strengthening executive leadership</string>
+    <string name="question2_answer3">C) A superior individual with dynamism and vision</string>
+    <string name="question2_answer4">D) A band of dedicated party workers</string>
+
+    <!-- Question 3 -->
+    <string name="question3_answer1">A) Ukraine</string>
+    <string name="question3_answer2">B) Sweden</string>
+    <string name="question3_answer3">C) Hong Kong</string>
+    <string name="question3_answer4">D) Latvia</string>
+
+    <!-- Question 4 -->
+    <string name="question4_answer1">A) North Star</string>
+    <string name="question4_answer2">B) Sirius </string>
+    <string name="question4_answer3">C) Canopus</string>
+    <string name="question4_answer4">D) Arcturus</string>
+
+    <!-- Question 5 -->
+    <string name="question5_answer1">A) wilkozwet</string>
+    <string name="question5_answer2">B) spadiwilko</string>
+    <string name="question5_answer3">C) moolobreil</string>
+    <string name="question5_answer4">D) spadivolo</string>
+
+    <!-- Question 6 -->
+    <string name="question6_answer1">A) Octopus</string>
+    <string name="question6_answer2">B) Elephant</string>
+    <string name="question6_answer3">C) Squid</string>
+    <string name="question6_answer4">D) Whale</string>
+
+    <!-- Buttons -->
+    <string name="prev">PREV</string>
+    <string name="next">NEXT</string>
+
+    <!-- Summary -->
+    <string name="submitQuiz">Submit Quiz</string>
+    <string name="reset">Try Again</string>
+    <string name ="correct_answers_summary">Your total number of correct answers is:</string>
+    <string name ="max_answers_summary">Congratulations! Your have a maximum score of:</string>
+    <string name ="zero_summary"></string>
+    <string name = "duplicate_answers_summary">You have already submitted your quiz. Click reset to start again.</string>
+    <string name="zero">0</string>
+    <string name="check_answer">Check Answer</string>
+
+</resources>
