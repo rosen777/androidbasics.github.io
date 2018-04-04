@@ -118,21 +118,13 @@ public class MainActivity extends AppCompatActivity {
             //When the sixteenth answer is checked, the number of correct answers increases by 1.
             correctAnswers += 1;
         }
-        if (checkBoxOne.isChecked() && checkBoxFour.isChecked()) {
+        if (checkBoxOne.isChecked() && checkBoxFour.isChecked() && !checkBoxTwo.isChecked() && !checkBoxThree.isChecked()) {
             //When the first checkbox and the fourth checkbox are checked, the number of correct answers increases by 1.
             correctAnswers += 1;
         }
-        if (checkBoxTwo.isChecked() || checkBoxThree.isChecked()) {
-            //When the second checkbox or the third checkbox is checked, the number of correct answers stays the same.
-            correctAnswers = 0;
-        }
-        if (checkBoxFive.isChecked() && checkBoxSeven.isChecked()) {
+        if (checkBoxFive.isChecked() && checkBoxSeven.isChecked() && !checkBoxSix.isChecked() && !checkBoxEight.isChecked()) {
             //When the fifth checkbox and the seventh checkbox are checked, the number of correct answers increases by 1.
             correctAnswers += 1;
-        }
-        if (checkBoxSix.isChecked() || checkBoxEight.isChecked()) {
-            //When the sixth checkbox or the eighth checkbox are checked, the number of correct answers stays the same.
-            correctAnswers = 0;
         }
         if (seventeenNumber.equalsIgnoreCase(userInput)) {
             //When the user types in 17, the number of correct answers increases by 1.
