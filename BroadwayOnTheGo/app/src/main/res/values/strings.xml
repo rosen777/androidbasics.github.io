@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">BroadwayOnTheGo</string>
+    <string name="rent_title">Rent</string>
+    <string name="wicked_title">Wicked</string>
+    <string name="aladdin_title">Aladdin</string>
+    <string name="back_library">Back to Library</string>
+</resources>

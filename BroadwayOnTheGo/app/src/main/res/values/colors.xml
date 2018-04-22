@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary color of the app (shown in the app bar) -->
+    <color name="colorPrimary">#4A312A</color>
+
+    <!-- Primary dark color of the app (shown in the status bar) -->
+    <color name="colorPrimaryDark">#2F1D1A</color>
+
+    <!-- Accent color of the app -->
+    <color name="colorAccent">#12887A</color>
+
+    <!-- Background color for app -->
+    <color name="white_background">#FFF</color>
+
+    <!-- Dark Background color for the app -->
+    <color name="dark_background">#282828</color>
+
+    <!-- Background color for the chaperone screen covers -->
+    <color name="orange_background">#FF5722</color>
+
+    <!-- Red background color for the musical Rent -->
+    <color name="red_background">#E2242F</color>
+
+    <!-- Green background color for the musical Wicked -->
+    <color name="green_background">#AACB4D</color>
+
+    <!-- Purple background color for the musical Aladdin -->
+    <color name="purple_background">#7A46B0</color>
+
+</resources>
