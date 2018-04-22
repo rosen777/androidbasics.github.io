@@ -43,16 +43,16 @@ public class RentActivity extends AppCompatActivity {
         // {@link ListView} will display list items for each {@link Song} in the list.
         listView.setAdapter(adapter);
 
-        setContentView(R.layout.list_item);
+        Button libraryView = (Button) findViewById(R.id.libraryButton);
 
-        Button library = (Button) findViewById(R.id.library_back);
-
-        library.setOnClickListener(new View.OnClickListener() {
-            //The code in this method will be executed when the library button is clicked on
+        libraryView.setOnClickListener(new View.OnClickListener() {
+            //  The code in this function would be executed when the back to library button is clicked on.
             @Override
             public void onClick(View view) {
+                //Create a new intent to open the {@link AladdinActivity}
                 Intent libraryIntent = new Intent(getApplicationContext(), MainActivity.class);
 
+                //Start the new activity
                 startActivity(libraryIntent);
             }
         });

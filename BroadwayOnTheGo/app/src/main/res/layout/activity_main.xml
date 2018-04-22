@@ -1,48 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".MainActivity"
-    >
+    tools:context=".MainActivity">
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-<LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/dark_background"
-        android:orientation="vertical"
-        >
-    <TextView
-        android:id="@+id/rent"
-        style="@style/AlbumCoverStyle"
-        android:background="@color/red_background"
-        android:textAllCaps="true"
-        android:gravity="center"
-        android:text="@string/rent_title"
-        />
-    <TextView
-        android:id="@+id/wicked"
-        style="@style/AlbumCoverStyle"
-        android:background="@color/green_background"
-        android:textAllCaps="true"
-        android:gravity="center"
-        android:text="@string/wicked_title"
-        />
-    <TextView
-        android:id="@+id/aladdin"
-        style="@style/AlbumCoverStyle"
-        android:background="@color/purple_background"
-        android:textAllCaps="true"
-        android:gravity="center"
-        android:text="@string/aladdin_title"
-        />
+        android:layout_height="match_parent">
 
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/dark_background"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/rent"
+                style="@style/AlbumCoverStyle"
+                android:background="@color/red_background"
+                android:gravity="center"
+                android:text="@string/rent_title"
+                android:textAllCaps="true" />
+
+            <TextView
+                android:id="@+id/wicked"
+                style="@style/AlbumCoverStyle"
+                android:background="@color/green_background"
+                android:gravity="center"
+                android:text="@string/wicked_title"
+                android:textAllCaps="true" />
+
+            <TextView
+                android:id="@+id/aladdin"
+                style="@style/AlbumCoverStyle"
+                android:background="@color/purple_background"
+                android:gravity="center"
+                android:text="@string/aladdin_title"
+                android:textAllCaps="true" />
+
+        </LinearLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -54,32 +53,35 @@
                 android:layout_alignParentBottom="true"
                 android:background="@drawable/back"
                 android:gravity="center" />
+
             <ImageView
                 android:id="@+id/previousButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
                 android:layout_alignParentBottom="true"
-                android:paddingRight="@dimen/margin_thirty_two"
-                android:paddingBottom="@dimen/margin_sixteen"
                 android:layout_toLeftOf="@+id/playButton"
-                android:src="@drawable/previousbutton"/>
+                android:paddingBottom="@dimen/margin_sixteen"
+                android:paddingRight="@dimen/margin_thirty_two"
+                android:src="@drawable/previousbutton" />
+
             <ImageView
                 android:id="@+id/playButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
                 android:layout_alignParentBottom="true"
-                android:paddingBottom="@dimen/margin_eight"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/playbutton64"/>
+                android:paddingBottom="@dimen/margin_eight"
+                android:src="@drawable/playbutton64" />
+
             <ImageView
                 android:id="@+id/nextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
                 android:layout_alignParentBottom="true"
-                android:paddingLeft="@dimen/margin_thirty_two"
-                android:paddingBottom="@dimen/margin_sixteen"
                 android:layout_toRightOf="@+id/playButton"
-                android:src="@drawable/nextbutton"/>
+                android:paddingBottom="@dimen/margin_sixteen"
+                android:paddingLeft="@dimen/margin_thirty_two"
+                android:src="@drawable/nextbutton" />
         </RelativeLayout>
     </RelativeLayout>
 </ScrollView>

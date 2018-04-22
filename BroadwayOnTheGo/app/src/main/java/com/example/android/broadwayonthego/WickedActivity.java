@@ -1,12 +1,15 @@
 package com.example.android.broadwayonthego;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class WickedActivity extends AppCompatActivity{
+public class WickedActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +40,21 @@ public class WickedActivity extends AppCompatActivity{
         // Make the {@link ListView} use the {@link SongAdapter, we created above, so that the
         // {@link ListView} will display list items for each {@link Song} in the list.
         listView.setAdapter(adapter);
+
+        Button libraryView = (Button) findViewById(R.id.libraryButton);
+
+        libraryView.setOnClickListener(new View.OnClickListener() {
+            //  The code in this function would be executed when the back to library button is clicked on.
+            @Override
+            public void onClick(View view) {
+                //Create a new intent to open the {@link AladdinActivity}
+                Intent libraryIntent = new Intent(getApplicationContext(), MainActivity.class);
+
+                //Start the new activity
+                startActivity(libraryIntent);
+            }
+        });
+
 
     }
 }

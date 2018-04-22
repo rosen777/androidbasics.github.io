@@ -16,9 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RentActivity" />
-        <activity android:name=".WickedActivity" />
-        <activity android:name=".AladdinActivity"></activity>
+        <activity android:name=".RentActivity"
+                  android:label="@string/rent_title"/>
+        <activity android:name=".WickedActivity"
+                  android:label="@string/wicked_title" />
+        <activity android:name=".AladdinActivity"
+                  android:label="@string/aladdin_title"/>
     </application>
 
 </manifest>
