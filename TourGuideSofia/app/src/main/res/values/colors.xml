@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+
+    <color name="colorPrimaryDark">#303F9F</color>
+
+    <color name="colorAccent">#FF4081</color>
+
+    <!-- Background color for app -->
+    <color name="tan_background">#FFF7DA</color>
+
+    <color name="category_events">#FD8E09</color>
+
+    <color name="category_restaurants">#379237</color>
+
+    <color name="category_shops">#8800A0</color>
+
+    <color name="category_sights">#16AFCA</color>
+
+</resources>
