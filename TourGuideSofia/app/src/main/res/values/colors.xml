@@ -9,9 +9,9 @@
     <!-- Background color for app -->
     <color name="tan_background">#FFF7DA</color>
 
-    <color name="category_events">#FD8E09</color>
+    <color name="category_events">#E53935</color>
 
-    <color name="category_restaurants">#379237</color>
+    <color name="category_restaurants">#7CB342</color>
 
     <color name="category_shops">#8800A0</color>
 
