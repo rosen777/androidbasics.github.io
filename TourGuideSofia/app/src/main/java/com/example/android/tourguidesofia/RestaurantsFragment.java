@@ -30,7 +30,7 @@ public class RestaurantsFragment extends Fragment {
 
         // Create a list of places
         final ArrayList<Place> places = new ArrayList<Place>();
-        places.add(new Place("Vodenicata", "12:00пm - 12:00am", R.drawable.vodenicata));
+        places.add(new Place("Vodenicata", "12:00pm - 12:00am", R.drawable.vodenicata));
         places.add(new Place("Vqtyrnite Melnici", "11:00am–11:00pm", R.drawable.vqtyrni_melnici));
         places.add(new Place("Shastliveca", "11:00аm - 12:00аm", R.drawable.shastliveca));
         places.add(new Place("Kushtata s Chasovnika", "10:00am–12:00am", R.drawable.kushtata_s_chasovnika));
