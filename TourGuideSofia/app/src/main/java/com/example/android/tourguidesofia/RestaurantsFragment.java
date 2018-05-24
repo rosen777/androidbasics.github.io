@@ -30,10 +30,10 @@ public class RestaurantsFragment extends Fragment {
 
         // Create a list of places
         final ArrayList<Place> places = new ArrayList<Place>();
-        places.add(new Place("Vodenicata", "12:00pm - 12:00am", R.drawable.vodenicata));
-        places.add(new Place("Vqtyrnite Melnici", "11:00am–11:00pm", R.drawable.vqtyrni_melnici));
-        places.add(new Place("Shastliveca", "11:00аm - 12:00аm", R.drawable.shastliveca));
-        places.add(new Place("Kushtata s Chasovnika", "10:00am–12:00am", R.drawable.kushtata_s_chasovnika));
+        places.add(new Place(getString(R.string.vodenicata), getString(R.string.vodenicata_hours), R.drawable.vodenicata));
+        places.add(new Place(getString(R.string.vqtyrnite_melnici), getString(R.string.vqtyrnite_melnici_hours), R.drawable.vqtyrni_melnici));
+        places.add(new Place(getString(R.string.shastliveca), getString(R.string.shastliveca_hours), R.drawable.shastliveca));
+        places.add(new Place(getString(R.string.kyshtata_s_chasovnika), getString(R.string.kyshtata_s_chasovnika_hours), R.drawable.kushtata_s_chasovnika));
 
         // Create an {@link PlaceAdapter}, whose data source is a list of {@link Place}s. The
         // adapter knows how to create list items for each item in the list.

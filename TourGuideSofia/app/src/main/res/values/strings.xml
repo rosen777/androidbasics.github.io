@@ -3,7 +3,7 @@
 
     <!-- Global names and hours -->
     <string name="all_day">24 hours</string>
-    <string name="mall_hours">10AM – 10PM</string>
+    <string name="mall_hours">10:00am – 10:00pm</string>
 
     <!-- Restaurants names and hours -->
     <string name="vodenicata">Vodenicata</string>
@@ -12,15 +12,15 @@
     <string name="vqtyrnite_melnici_hours">11:00am–11:00pm</string>
     <string name="shastliveca">Shastliveca</string>
     <string name="shastliveca_hours">11:00аm - 12:00аm</string>
-    <string name="kushtata_s_chasovnika">Kushtata s Chasovnika</string>
-    <string name="kushtata_s_chasovnika_hours">10:00am–12:00am</string>
+    <string name="kyshtata_s_chasovnika">Kyshtata s Chasovnika</string>
+    <string name="kyshtata_s_chasovnika_hours">10:00am–12:00am</string>
 
     <!-- Sights names and hours -->
     <string name="ndk">National Palace of Culture</string>
     <string name="alexander_nevsky_cathedral">Alexander Nevsky Cathedral"</string>
-    <string name="alexander_nevsky_cathedral_hours">07:00am - 18:00pm</string>
+    <string name="alexander_nevsky_cathedral_hours">7:00am - 6:00pm</string>
     <string name="sofia_university">Sofia University</string>
-    <string name="sofia_university_hours">08:30am – 17:30pm</string>
+    <string name="sofia_university_hours">8:30am – 5:30pm</string>
     <string name="south_park">South Park</string>
 
     <!-- Shops names -->
@@ -31,11 +31,11 @@
 
     <!-- Events names, dates and hours -->
     <string name="bacchus">Bacchus StrEAT Fest 2018</string>
-    <string name="bacchus_hours">June 8 \0026 9, 2018, 10:00am - 8:00pm</string>
+    <string name="bacchus_hours">June 8 &amp; 9, 2018, 10:00am - 8:00pm</string>
     <string name="mish_mash_fest">Mish Mash Fest</string>
-    <string name="mish_mash_fest_hours">June 9 \0026 10, 2018, 10:00am - 7:00pm</string>
+    <string name="mish_mash_fest_hours">June 9 &amp; 10, 2018, 10:00am - 7:00pm</string>
     <string name="radio_park_fest">Radio Park Fest</string>
-    <string name="radio_park_fest_hours">June 15, 16 \u0026 17 2018, 6:00pm</string>
+    <string name="radio_park_fest_hours">June 15, 16 &amp; 17 2018, 6:00pm</string>
     <string name="hippieland">HippieLandia Festival 2018</string>
     <string name="hippieland_hours">June 22, 2018, 9:00pm – 8:00am</string>
 

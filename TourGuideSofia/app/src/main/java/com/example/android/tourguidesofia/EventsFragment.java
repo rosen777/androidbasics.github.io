@@ -21,10 +21,10 @@ public class EventsFragment extends Fragment {
 
         //  Create a list of words
         final ArrayList<Place> places = new ArrayList<Place>();
-        places.add(new Place(R.string.bacchus, R.string.bacchus_hours));
-        places.add(new Place("Mish Mash Fest", "June 9 & 10, 2018, 10:00am - 7:00pm"));
-        places.add(new Place("Radio Park Fest", "June 15, 16 & 17 2018, 6:00pm"));
-        places.add(new Place("HippieLandia Festival 2018", "June 22, 2018, 9:00pm – 8:00am"));
+        places.add(new Place(getString(R.string.bacchus), getString(R.string.bacchus_hours)));
+        places.add(new Place(getString(R.string.mish_mash_fest), getString(R.string.mish_mash_fest_hours)));
+        places.add(new Place(getString(R.string.radio_park_fest), getString(R.string.radio_park_fest_hours)));
+        places.add(new Place(getString(R.string.hippieland), getString(R.string.hippieland_hours)));
 
 
         // Create an {@link PlaceAdapter}, whose data source is a list of {@link Place}s. The

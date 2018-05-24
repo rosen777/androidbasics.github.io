@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 public class PlacePagerAdapter extends FragmentPagerAdapter {
     final int PAGE_COUNT = 4;
-    private String tabTitles[] = new String[]{"Restaurants", "Sights", "Events", "Shops"};
+    private String tabTitles[] = new String[]{"Sights", "Restaurants", "Events", "Shops"};
     private Context context;
 
     /**
@@ -27,9 +27,9 @@ public class PlacePagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (position == 0) {
-            return new RestaurantsFragment();
-        } else if (position == 1) {
             return new SightsFragment();
+        } else if (position == 1) {
+            return new RestaurantsFragment();
         } else if (position == 2) {
             return new EventsFragment();
         } else {
