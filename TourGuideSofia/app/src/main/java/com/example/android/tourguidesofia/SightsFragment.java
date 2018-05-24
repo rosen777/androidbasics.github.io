@@ -30,9 +30,9 @@ public class SightsFragment extends Fragment {
 
         // Create a list of places
         final ArrayList<Place> places = new ArrayList<Place>();
-        places.add(new Place("South Park", "24 hours", R.drawable.south_park));
         places.add(new Place("National Palace of Culture", "24 hours", R.drawable.ndk));
         places.add(new Place("Alexander Nevsky Cathedral", "07:00am - 18:00pm", R.drawable.alexander_nevsky_cathedral));
+        places.add(new Place("South Park", "24 hours", R.drawable.south_park));
         places.add(new Place("Sofia University", "08:30am – 17:30pm", R.drawable.sofia_university));
 
         // Create an {@link WordAdapter}, whose data source is a list of {@link Place}s. The

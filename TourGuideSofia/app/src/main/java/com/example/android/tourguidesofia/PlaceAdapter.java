@@ -23,16 +23,6 @@ public class PlaceAdapter extends ArrayAdapter<Place> {
     private int mColorResourceId;
 
     /**
-     * Create a new {@link PlaceAdapter} object.
-     *
-     * @param context The current context. Used to inflate the layout file.
-     * @param places A list of place objects to display in a list.
-     * @param colorResourceId is the resource ID for the background color for this list of places
-     */
-
-    private static final String Place = PlaceAdapter.class.getSimpleName();
-
-    /**
      * This is our own custom constructor (it doesn't mirror a superclass constructor).
      * The context is used to inflate the layout file, and the the list is the dat we want
      * to populate into the lists.

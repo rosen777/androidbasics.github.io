@@ -21,7 +21,7 @@ public class EventsFragment extends Fragment {
 
         //  Create a list of words
         final ArrayList<Place> places = new ArrayList<Place>();
-        places.add(new Place("Bacchus StrEAT Fest 2018", "June 8 & 9, 2018, 10:00am - 8:00pm"));
+        places.add(new Place(R.string.bacchus, R.string.bacchus_hours));
         places.add(new Place("Mish Mash Fest", "June 9 & 10, 2018, 10:00am - 7:00pm"));
         places.add(new Place("Radio Park Fest", "June 15, 16 & 17 2018, 6:00pm"));
         places.add(new Place("HippieLandia Festival 2018", "June 22, 2018, 9:00pm – 8:00am"));
