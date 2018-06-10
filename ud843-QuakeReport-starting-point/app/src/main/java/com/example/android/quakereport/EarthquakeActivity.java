@@ -45,10 +45,6 @@ public class EarthquakeActivity extends AppCompatActivity
     /** Adapter for the list of earthquakes */
     private EarthquakeAdapter mAdapter;
 
-    /** Adding the context field */
-    private Context context;
-
-
     /** Constant value for the earthquake loader ID. We can choose any integer.
      * This really only comes into play if you're using multiple loaders
      */
@@ -118,10 +114,10 @@ public class EarthquakeActivity extends AppCompatActivity
                 getSystemService(Context.CONNECTIVITY_SERVICE);
 
         // Get details on the currently active default data network
-        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        NetworkInfo activeNetwork = connMgr.getActiveNetworkInfo();
 
         // If there is a network connection, fetch data
-        if (networkInfo != null && networkInfo.isConnected()) {
+        if (activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
             // Get a reference to the LoaderManager, in order to interact with loaders.
             LoaderManager loaderManager = getLoaderManager();
 
@@ -140,7 +136,6 @@ public class EarthquakeActivity extends AppCompatActivity
         }
     }
 
-        }
     /**
      * {@link AsyncTask} to perform the network request on a background thread, and then
      * update the UI with the list of earthquakes in the response.
