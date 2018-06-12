@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary color of the app (shown in the app bar) -->
+    <color name="colorPrimary">#2B3D4D</color>
+
+    <!-- Primary dark color of the app (shown in the status bar) -->
+    <color name="colorPrimaryDark">#23303D</color>
+
+    <!-- Accent color of the app -->
+    <color name="colorAccent">#10CAC9</color>
+
+    <!-- Text color for the title of the earthquake -->
+    <color name="textColorNewsTitle">#26C6DA</color>
+
+    <!-- Text color for the publication date of the earthquake -->
+    <color name="textColorPubDate">#84BAC0</color>
+
+    <!-- Text color for the section of the earthquake -->
+    <color name="textColorSection">#2B3D4D</color>
+
+</resources>
