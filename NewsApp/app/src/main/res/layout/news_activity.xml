@@ -7,8 +7,7 @@
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@null"
-        android:dividerHeight="@dimen/margin_zero"  />
+        android:layout_marginBottom="@dimen/margin_eight"/>
 
     <!-- Empty view is only visible when the list has no items. -->
 
@@ -21,6 +20,7 @@
 
         <ProgressBar
             android:id="@+id/progress_bar"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:indeterminate="false"

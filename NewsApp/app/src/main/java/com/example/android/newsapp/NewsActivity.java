@@ -71,6 +71,10 @@ public class NewsActivity extends AppCompatActivity
         mEmptyStateTextView = (TextView) findViewById(R.id.empty_view);
         articleListView.setEmptyView(mEmptyStateTextView);
 
+        // Set the adapter on the {@link ListView}
+        // so the list can be populated in the user interface
+        articleListView.setAdapter(mAdapter);
+
         // Set an item click listener on the ListView, which sends an intent to a web browser
         // to open a website with more information about the selected article.
         articleListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

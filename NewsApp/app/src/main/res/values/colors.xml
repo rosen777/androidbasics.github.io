@@ -9,13 +9,16 @@
     <!-- Accent color of the app -->
     <color name="colorAccent">#10CAC9</color>
 
-    <!-- Text color for the title of the earthquake -->
-    <color name="textColorNewsTitle">#26C6DA</color>
+    <!-- Text color for the title of the news article -->
+    <color name="textColorNewsDetails">#26C6DA</color>
 
-    <!-- Text color for the publication date of the earthquake -->
+    <!-- Text color for the publication date of news article -->
     <color name="textColorPubDate">#84BAC0</color>
 
-    <!-- Text color for the section of the earthquake -->
+    <!-- Text color for the section of news article -->
     <color name="textColorSection">#2B3D4D</color>
+
+    <!-- Text color for the title section of the news article -->
+    <color name="textColorGray">#2F3D48</color>
 
 </resources>
