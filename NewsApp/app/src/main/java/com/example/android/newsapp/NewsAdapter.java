@@ -39,9 +39,8 @@ public class NewsAdapter extends ArrayAdapter<Article>{
 
     public View getView(int position, View convertView, ViewGroup parent) {
         // Check if the existing view is being reused, otherwise inflate the view
-        View listItemView = convertView;
-        if(listItemView == null) {
-            listItemView = LayoutInflater.from(getContext()).inflate(
+        if(convertView == null) {
+            convertView = LayoutInflater.from(getContext()).inflate(
                     R.layout.list_item, parent, false);
         }
 
@@ -69,21 +68,21 @@ public class NewsAdapter extends ArrayAdapter<Article>{
         String title = currentArticle.getTitle();
 
         // Find he TextView in the list_item.xml layout with the ID title
-        TextView titleTextView = (TextView) listItemView.findViewById(R.id.title);
+        TextView titleTextView = (TextView) convertView.findViewById(R.id.title);
 
         // Get the title from the current Article object and
         // set this text on the title TextView
         titleTextView.setText(title);
 
         // Find the TextView in the list_item.xml layout with the ID date
-        TextView dateTextView = (TextView) listItemView.findViewById(R.id.date);
+        TextView dateTextView = (TextView) convertView.findViewById(R.id.date);
 
         // Get the date from the current Article object and
         // set this text on the date TextView
         dateTextView.setText(date);
 
         // Find the time TextView from the list_item.xml layout with the id time
-        TextView timeTextView = (TextView) listItemView.findViewById(R.id.time);
+        TextView timeTextView = (TextView) convertView.findViewById(R.id.time);
 
         // Get the time from the current Article object and
         // set this text on the time TextView
@@ -93,7 +92,7 @@ public class NewsAdapter extends ArrayAdapter<Article>{
         String url = currentArticle.getUrl();
 
         // Find the TextView in the list_item.xml layout with the ID url
-        TextView urlTextView = (TextView) listItemView.findViewById(R.id.url);
+        TextView urlTextView = (TextView) convertView.findViewById(R.id.url);
         // Get the url from the current Article object and
         // set this text on the url TextView
         urlTextView.setText(url);
@@ -102,14 +101,25 @@ public class NewsAdapter extends ArrayAdapter<Article>{
         String section = currentArticle.getSection();
 
         // Find the TextView in the list_item.xml layout with the ID section
-        TextView sectionTextView = (TextView) listItemView.findViewById(R.id.section);
+        TextView sectionTextView = (TextView) convertView.findViewById(R.id.section);
+
         // Get the section Article object and
         // set this text on the section TextView
         sectionTextView.setText(section);
 
+        // String author from the Article object
+        String author = currentArticle.getAuthor();
+
+        // Find the TextView in the list_item.xml layout with the ID author
+        TextView authorTextView = (TextView) convertView.findViewById(R.id.author);
+
+        // Get the author Article object and
+        // set this text on the author TextView
+        authorTextView.setText(author);
+
         // Return the whole list item layout (containing 4 TextViews)
         // so it can shown in the ListView
-        return listItemView;
+        return convertView;
     }
 
 }

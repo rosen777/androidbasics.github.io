@@ -197,14 +197,22 @@ public class QueryUtils {
                     // Extract the value for the key called "webPublicationDate"
                     String date = currentNews.getString("webPublicationDate");
 
+                    JSONArray tagsArray = currentNews.getJSONArray("tags");
+
+                        JSONObject currentTags = tagsArray.getJSONObject(i);
+
+                        // Extract the value for the key called "author"
+                        String author = currentTags.getString("webTitle");
+
                     // Extract the value for the key called "url"
-                    String url = currentNews.getString("webUrl");
+                    String url = currentNews.getString("url");
 
                     // Create the new {@link Earthquake} object with magnitude, location, time
                     // and url from the JSON response.
-                    Article article = new Article(title, section, date, url);
+                    Article article = new Article(title, section, date, url, author);
 
                     articles.add(article);
+
                 }
             } catch (JSONException e) {
                 // If an error is thrown when executing any of the above statements in the "try" block,

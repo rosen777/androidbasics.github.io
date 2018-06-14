@@ -16,13 +16,17 @@ public class Article {
     // Date of the article (e.g. 11 June 2018, 20:44:30)
     private String mDate;
 
+    // Author of the article
+    private String mAuthor;
+
     // URL of the article (e.g. https://www.theguardian.com/business/2018/may/29/brexit-disaster-economic-data-uk-eu)
     private String mUrl;
 
-    public Article(String Title, String Section, String Date, String Url) {
+    public Article(String Title, String Section, String Date, String Author, String Url) {
         mTitle = Title;
         mSection = Section;
         mDate = Date;
+        mAuthor = Author;
         mUrl = Url;
     }
 
@@ -48,6 +52,14 @@ public class Article {
 
     public String getDate() {
         return mDate;
+    }
+
+    /**
+     * Get the author of the article
+     */
+
+    public String getAuthor() {
+        return mAuthor;
     }
 
     /**

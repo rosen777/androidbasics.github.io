@@ -156,7 +156,7 @@ public class NewsActivity extends AppCompatActivity
 
     // If there is a valid list of {@link Article}s, then add them to the adapter's
     // data set. This will trigger the ListView to update.
-    if (articles != null && !articles.isEmpty());
+    if (articles != null && !articles.isEmpty())
     {
         mAdapter.addAll(articles);
     }
