@@ -30,6 +30,13 @@ public class Article {
         mUrl = Url;
     }
 
+    public Article(String Title, String Section, String Date, String Url) {
+        mTitle = Title;
+        mSection = Section;
+        mDate = Date;
+        mUrl = Url;
+    }
+
     /**
      * Get the title of the article
      */

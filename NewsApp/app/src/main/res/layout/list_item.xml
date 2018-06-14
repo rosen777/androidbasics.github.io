@@ -22,6 +22,18 @@
         android:textColor="@color/textColorGray"
         tools:text="Brexit article"/>
 
+    <TextView
+        android:id="@+id/author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:gravity="center"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="12sp"
+        android:textColor="@color/textColorGray"
+        tools:text="Robert Gordon"/>
+
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -44,18 +56,6 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/author"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@id/date"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:layout_gravity="center_vertical"
-                android:fontFamily="sans-serif-medium"
-                android:textColor="@color/textColorPubDate"
-                tools:text="Robert Gordon"/>
 
         <TextView
             android:id="@+id/date"

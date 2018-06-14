@@ -182,6 +182,7 @@ public class QueryUtils {
 
                 JSONArray articleArray = response.getJSONArray("results");
 
+
                 // If there are results in the articles array
                 for (int i = 0; i < articleArray.length(); i++) {
 
@@ -197,21 +198,36 @@ public class QueryUtils {
                     // Extract the value for the key called "webPublicationDate"
                     String date = currentNews.getString("webPublicationDate");
 
+                    // Extract the value for the key called "url"
+                    String url = currentNews.getString("webUrl");
+
+
                     JSONArray tagsArray = currentNews.getJSONArray("tags");
 
-                        JSONObject currentTags = tagsArray.getJSONObject(i);
+                    String author;
 
-                        // Extract the value for the key called "author"
-                        String author = currentTags.getString("webTitle");
+                    if(tagsArray.length()== 0) {
 
-                    // Extract the value for the key called "url"
-                    String url = currentNews.getString("url");
+                        // Create the new {@link Earthquake} object with magnitude, location, time
+                        // and url from the JSON response.
 
-                    // Create the new {@link Earthquake} object with magnitude, location, time
-                    // and url from the JSON response.
-                    Article article = new Article(title, section, date, url, author);
+                        author == null;
+                    } else {
 
-                    articles.add(article);
+
+                        for(int index = 0; index < tagsArray.length(); index++) {
+
+                            JSONObject currentTags = tagsArray.getJSONObject(index);
+
+                            // Extract the value for the key called "author"
+                             author = currentTags.getString("webTitle");
+
+                            Article article = new Article(title, section, date, url, author);
+
+                            articles.add(article);
+                        }
+
+                    }
 
                 }
             } catch (JSONException e) {
