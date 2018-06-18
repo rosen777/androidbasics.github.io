@@ -109,7 +109,7 @@ public class QueryUtils {
             // If the request was successful (response code 200),
             // then read the input stream and parse the response.
 
-            if (urlConnection.getResponseCode() == 200) {
+            if (urlConnection.getResponseCode() == urlConnection.HTTP_OK) {
                 inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
             } else {
@@ -201,33 +201,35 @@ public class QueryUtils {
                     // Extract the value for the key called "url"
                     String url = currentNews.getString("webUrl");
 
-
                     JSONArray tagsArray = currentNews.getJSONArray("tags");
 
-                    String author;
 
-                    if(tagsArray.length()== 0) {
+                    if(currentNews.has("tags")) {
 
-                        // Create the new {@link Earthquake} object with magnitude, location, time
-                        // and url from the JSON response.
-
-                        author == null;
-                    } else {
+                            // Create the new {@link Earthquake} object with magnitude, location, time
+                            // and url from the JSON response.
+                            for (int index = 0; index < tagsArray.length(); index++) {
 
 
-                        for(int index = 0; index < tagsArray.length(); index++) {
+                                JSONObject currentTags = tagsArray.getJSONObject(index);
 
-                            JSONObject currentTags = tagsArray.getJSONObject(index);
 
-                            // Extract the value for the key called "author"
-                             author = currentTags.getString("webTitle");
+                                String author = currentTags.getString("webTitle");
 
-                            Article article = new Article(title, section, date, url, author);
 
-                            articles.add(article);
-                        }
+                                Article article = new Article(title, section, date, author, url);
+
+                                articles.add(article);
+                            }
+
 
                     }
+
+                        Article article = new Article(title, section, date, url);
+
+                        articles.add(article);
+
+
 
                 }
             } catch (JSONException e) {

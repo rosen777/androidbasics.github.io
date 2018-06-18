@@ -1,7 +1,40 @@
-<resources>
-    <string name="app_name">NewsApp</string>
-    <string name="empty_separator"> </string>
-    <string name="no_internet_connection">No internet connection</string>
-    <string name="no_articles">No articles found</string>
-    <string name="unknown_author">Unknown author</string>
+    <resources>
+
+        <!-- Strings for the NewsApp -->
+        <string name="app_name">NewsApp</string>
+        <string name="empty_separator"> </string>
+        <string name="no_internet_connection">No internet connection. \n Please, connect to a Wi-Fi or a mobile network and try again.</string>
+        <string name="no_articles">No articles found. \n Please, come back later and try again.</string>
+
+        <!-- Settings strings -->
+        <string name="settings_menu_item">Settings</string>
+        <string name="settings_title">Article Settings</string>
+
+        <!-- Strings For Order-By Preference [CHAR LIMIT = 30] -->
+        <string name="settings_order_by_label">Order By</string>
+        <string name="settings_order_by_key" tanslatable="false">order-by</string>
+        <string name="settings_order_by_default" translatable="false">@string/settings_order_by_most_recent_value</string>
+
+
+            <!-- Label for order-by relevance option [CHAR LIMIT=20] -->
+        <string name="settings_order_by_oldest_label">Oldest</string>
+        <string name="settings_order_by_oldest_value" translatable="false">oldest</string>
+
+        <!-- Label for order-by most recent option [CHAR LIMIT=20] -->
+        <string name="settings_order_by_most_recent_label">Most Recent</string>
+        <string name="settings_order_by_most_recent_value">newest</string>
+
+        <!-- Strings  for Show-Tags Preference [CHAR LIMIT = 30] -->
+        <string name="settings_show_tags_label">Show Tags</string>
+        <string name="settings_show_tags_key" translatable="false">show-tags</string>
+        <string name="settings_show_tags_default" translatable="false">@string/settings_show_tags_contributor_value</string>
+
+        <!-- Label for contributor option [CHAR LIMIT = 20] -->
+        <string name="settings_show_tags_contributor_label">Author</string>
+        <string name="settings_show_tags_contributor_value">contributor</string>
+
+        <!-- Label for tone option [CHAR LIMIT = 20] -->
+        <string name="settings_show_tags_tone_label">Tone</string>
+        <string name="settings_show_tags_tone_value" translatable="false">tone</string>
+
 </resources>
