@@ -19,6 +19,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="@dimen/margin_sixteen"
-        android:src="@drawable/ic_done"/>
+        android:src="@drawable/ic_book_opened"/>
 
 </RelativeLayout>

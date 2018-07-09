@@ -37,11 +37,11 @@ public class EditorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_editor);
 
         // Find all relevant views that we will need to read user input form
-        mProductNameEditText = (EditText) findViewById(R.id.edit_product_name);
-        mPriceEditText = (EditText) findViewById(R.id.edit_price);
-        mQuantityEditText = (EditText) findViewById(R.id.edit_quantity);
-        mSupplierNameEditText = (EditText) findViewById(R.id.edit_supplier_name);
-        mSupplierPhoneNumberEditText = (EditText) findViewById(R.id.edit_supplier_phone_number);
+        mProductNameEditText = findViewById(R.id.edit_product_name);
+        mPriceEditText = findViewById(R.id.edit_price);
+        mQuantityEditText = findViewById(R.id.edit_quantity);
+        mSupplierNameEditText = findViewById(R.id.edit_supplier_name);
+        mSupplierPhoneNumberEditText = findViewById(R.id.edit_supplier_phone_number);
 
     }
 
@@ -64,7 +64,7 @@ public class EditorActivity extends AppCompatActivity {
        SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
        // Create a ConstantValues object where column names are the keys,
-       // and pet attributes from the editor are the values.
+       // and book attributes from the editor are the values.
        ContentValues values = new ContentValues();
        values.put(BookEntry.COLUMN_PRODUCT_NAME, productNameString);
        values.put(BookEntry.COLUMN_PRICE, price);
@@ -78,14 +78,16 @@ public class EditorActivity extends AppCompatActivity {
        // Show a toast message depending on whether or not the insert was successful
        if(newRowId == -1) {
            //If the new row ID is -1, then there was an error with the insertion.
-           Toast.makeText(this, "Error with saving book", Toast.LENGTH_SHORT).show();
+           Toast.makeText(this, getString(R.string.error_save), Toast.LENGTH_SHORT).show();
 
-           Log.v("EditorActivity", "New row ID " + newRowId);
+           Log.v("EditorActivity", getString(R.string.new_row) + newRowId);
        } else {
            // Otherwise, the insertion was successful and we can display a toast with the row ID.
-           Toast.makeText(this, "Pet saved with id: " + newRowId, Toast.LENGTH_SHORT).show();
+           Toast.makeText(this, getString(R.string.book_saved) + newRowId, Toast.LENGTH_SHORT).show();
        }
    }
+
+
 
    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -102,14 +104,25 @@ public class EditorActivity extends AppCompatActivity {
            // Respond to a click on the "Save" menu option
            case R.id.action_save:
                // Save book to database
-               insertBook();
-               //Exit activity
-               finish();
-               return true;
-               // Respond to a click on the "Delete" menu option
-           case R.id.action_delete:
-               // Do nothing for now
-               return true;
+               if(mProductNameEditText.getText().toString().trim().equals("") || mPriceEditText.getText().toString().trim().equals("") || mQuantityEditText.equals("")
+                       || mSupplierNameEditText.getText().toString().trim().equals("") || mSupplierPhoneNumberEditText.getText().toString().trim().equals("")){
+                   mProductNameEditText.setError(getString(R.string.required_product_name));
+                   mProductNameEditText.setHint(getString(R.string.enter_product_name));
+                   mPriceEditText.setError(getString(R.string.required_price));
+                   mPriceEditText.setHint(getString(R.string.enter_price));
+                   mQuantityEditText.setError(getString(R.string.required_quantity));
+                   mQuantityEditText.setHint(getString(R.string.enter_quality));
+                   mSupplierNameEditText.setError(getString(R.string.required_supplier_name));
+                   mSupplierNameEditText.setHint(getString(R.string.enter_supplier_name));
+                   mSupplierPhoneNumberEditText.setError(getString(R.string.required_phone_number));
+                   mSupplierPhoneNumberEditText.setHint(R.string.enter_phone_number);
+                   return false;
+               } else {
+                   insertBook();
+                   //Exit activity
+                   finish();
+                   return true;
+               }
                // Respond to a click on the "Up" arrow button in the app bar
            case android.R.id.home:
                //Navigate back to parent activity (InventoryActivity)

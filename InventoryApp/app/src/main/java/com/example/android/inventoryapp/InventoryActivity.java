@@ -32,7 +32,7 @@ public class InventoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_inventory);
 
         //Setup FAB to open EditorActivity
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,6 +63,7 @@ public class InventoryActivity extends AppCompatActivity {
 
         String[] projection = {
                 BookEntry._ID,
+                BookEntry.COLUMN_PRODUCT_NAME,
                 BookEntry.COLUMN_PRICE,
                 BookEntry.COLUMN_QUANTITY,
                 BookEntry.COLUMN_SUPPLIER_NAME,
@@ -76,6 +77,7 @@ public class InventoryActivity extends AppCompatActivity {
                 null,
                 null,
                 null);
+
 
         TextView displayView = (TextView) findViewById(R.id.text_view_book);
 
@@ -106,6 +108,8 @@ public class InventoryActivity extends AppCompatActivity {
 
             // Iterate through all the returned rows in the cursor
             while (cursor.moveToNext()) {
+                // Use that index to extract the String or Int value of the word
+                // at the current row the cursor is on.
                 int currentID = cursor.getInt(idColumnIndex);
                 String currentProductName = cursor.getString(productNameColumnIndex);
                 int currentPrice = cursor.getInt(priceColumnIndex);
@@ -163,9 +167,6 @@ public class InventoryActivity extends AppCompatActivity {
                 insertBook();
                 displayDatabaseInfo();
                 // Respond to a click on the "Delete all entries" menu option
-            case R.id.action_delete_all_entries:
-                // Do nothing for now
-                return true;
         }
         return super.onOptionsItemSelected(item);
     }

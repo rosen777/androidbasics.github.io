@@ -9,6 +9,9 @@
     <!-- Label for overflow menu option that deletes all book data in the app -->
     <string name="action_delete_all_entries">Delete All Entries</string>
 
+    <!-- Marks a field that is required -->
+    <string name="required">Required!</string>
+
     <!-- Title for the activity to add a new book [CHAR LIMIT = 20] -->
     <string name="editor_activity_title_new_product">Add a Product</string>
 
@@ -38,5 +41,18 @@
 
     <!-- Label for overview category of attributes in the editor [CHAR LIMIT=30] -->
     <string name="category_overview">Overview</string>
+    <string name="error_save">Error with saving book</string>
+    <string name="new_row">New row ID</string>
+    <string name="book_saved">Yay! Your book is saved with id:</string>
+    <string name="required_product_name">The product name field is required!</string>
+    <string name="enter_product_name">Enter product name!</string>
+    <string name="required_price">The price field is required!</string>
+    <string name="enter_price">Enter price!</string>
+    <string name="required_quantity">The quantity field is required!</string>
+    <string name="enter_quality">Enter quantity!</string>
+    <string name="required_supplier_name">The supplier name field is required</string>
+    <string name="enter_supplier_name">Enter supplier name!</string>
+    <string name="required_phone_number">The supplier phone number field is required</string>
+    <string name="enter_phone_number">Enter phone number!</string>
 
 </resources>
