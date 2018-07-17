@@ -27,7 +27,7 @@
 
         <provider
             android:name=".data.BookProvider"
-            android:authorities="com.example.android.books"
+            android:authorities="com.example.android.inventoryappstage2"
             android:exported="false" />
 
     </application>
