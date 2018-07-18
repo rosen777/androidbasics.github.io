@@ -15,14 +15,15 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
-import android.telecom.Call;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.android.inventoryappstage2.data.BookContract.BookEntry;
@@ -65,6 +66,17 @@ public class EditorActivity extends AppCompatActivity implements
      * EditText field to enter the suppler's price
      */
     private EditText mSupplierPhoneNumberEditText;
+
+    /**
+     * String for the LOG_TAG
+     */
+    private static final String LOG_TAG = EditorActivity.class.getSimpleName();
+
+    /**
+     * A global constant for the call-phone permission code
+     */
+
+    private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 1;
 
     /**
      * OnTouchListener that listens for any user touches on a View, implying that they are modifying
@@ -194,18 +206,39 @@ public class EditorActivity extends AppCompatActivity implements
                 Intent callIntent = new Intent(Intent.ACTION_CALL);
                 callIntent.setData(Uri.parse("tel:" + supplierPhoneNumberString));
                 if (ActivityCompat.checkSelfPermission(EditorActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
                     //    ActivityCompat#requestPermissions
                     // here to request the missing permissions, and then overriding
                     //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
                     //                                          int[] grantResults)
                     // to handle the case where the user grants the permission. See the documentation
                     // for ActivityCompat#requestPermissions for more details.
+
+                    private void checkForPhonePermission(){
+                        if(ActivityCompat.checkSelfPermission(EditorActivity.this,
+                                Manifest.permission.CALL_PHONE) !=
+                                PackageManager.PERMISSION_GRANTED) {
+                            Log.d(LOG_TAG, "Permission NOT GRANTED!");
+                            ActivityCompat.requestPermissions(EditorActivity.this,
+                                    new String[]{Manifest.permission.CALL_PHONE},
+                                    MY_PERMISSIONS_REQUEST_CALL_PHONE);
+                        } else {
+                            //Permission already granted. Enable the call button.
+                            enableCallButton();
+                        }
+                    }
                     return;
                 }
                 startActivity(callIntent);
             }
         });
+
+        /**
+         * Makes the call button (phone_icon) visible so that it can be used.
+         */
+        private void enableCallButton() {
+            callButton.setVisibility(View.VISIBLE);
+        }
+
 
         //  Determine if this is s new or existing book by checking if mCurrentBookUri is null or not
         if(mCurrentBookUri == null) {
@@ -241,8 +274,9 @@ public class EditorActivity extends AppCompatActivity implements
                             Toast.LENGTH_SHORT).show();
                 }
             }
-
         }
+
+
 
             @Override
             public boolean onCreateOptionsMenu(Menu menu) {
