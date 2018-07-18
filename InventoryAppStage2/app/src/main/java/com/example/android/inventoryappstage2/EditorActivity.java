@@ -1,5 +1,6 @@
 package com.example.android.inventoryappstage2;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.content.ContentValues;
@@ -7,9 +8,11 @@ import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.telecom.Call;
@@ -25,7 +28,7 @@ import android.widget.Toast;
 import com.example.android.inventoryappstage2.data.BookContract.BookEntry;
 
 public class EditorActivity extends AppCompatActivity implements
-LoaderManager.LoaderCallbacks<Cursor>{
+        LoaderManager.LoaderCallbacks<Cursor> {
 
     /**
      * Identifier for the book data loader
@@ -94,8 +97,8 @@ LoaderManager.LoaderCallbacks<Cursor>{
 
         // If the intent DOES NOT contain a book content URI, then  we know that we are
         // creating a new book
-        if(mCurrentBookUri == null) {
-        // This is a new book, so change the app bar to say "Add a Book"
+        if (mCurrentBookUri == null) {
+            // This is a new book, so change the app bar to say "Add a Book"
             setTitle(getString(R.string.editor_activity_title_new_product));
 
             // Invalidate the options menu, so the "Delete" menu option can be hidden.
@@ -157,7 +160,7 @@ LoaderManager.LoaderCallbacks<Cursor>{
         // If the price is not provided by the user, don't try to parse the string into an
         // integer value
         int price = 0;
-        if(!TextUtils.isEmpty(priceString)) {
+        if (!TextUtils.isEmpty(priceString)) {
             price = Integer.parseInt(priceString);
         }
         values.put(BookEntry.COLUMN_PRICE, price);
@@ -165,7 +168,7 @@ LoaderManager.LoaderCallbacks<Cursor>{
         // If the quantity is not provided by the user, don't try to parse the string into an
         // integer value
         int quantity = 0;
-        if(!TextUtils.isEmpty(quantityString)) {
+        if (!TextUtils.isEmpty(quantityString)) {
             quantity = Integer.parseInt(quantityString);
         }
         values.put(BookEntry.COLUMN_QUANTITY, quantity);
@@ -175,7 +178,7 @@ LoaderManager.LoaderCallbacks<Cursor>{
         // If the supplier phone number is not provided by the user, don't try to parse the string into an
         // integer value
         int supplierPhoneNumber = 8675309;
-        if(!TextUtils.isEmpty(supplierPhoneNumberString)) {
+        if (!TextUtils.isEmpty(supplierPhoneNumberString)) {
             supplierPhoneNumber = Integer.parseInt(supplierPhoneNumberString);
         }
         values.put(BookEntry.COLUMN_SUPPLIER_PHONE_NUMBER, supplierPhoneNumber);
@@ -190,6 +193,16 @@ LoaderManager.LoaderCallbacks<Cursor>{
             public void onClick(View view) {
                 Intent callIntent = new Intent(Intent.ACTION_CALL);
                 callIntent.setData(Uri.parse("tel:" + supplierPhoneNumberString));
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return;
+                }
                 startActivity(callIntent);
             }
         });
