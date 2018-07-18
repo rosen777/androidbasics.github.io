@@ -183,6 +183,16 @@ LoaderManager.LoaderCallbacks<Cursor>{
         /**
          * Call button for the ACTION_CALL intent
          */
+        Button callButton = findViewById(R.id.call_button);
+
+        callButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:" + supplierPhoneNumberString));
+                startActivity(callIntent);
+            }
+        });
 
         //  Determine if this is s new or existing book by checking if mCurrentBookUri is null or not
         if(mCurrentBookUri == null) {
