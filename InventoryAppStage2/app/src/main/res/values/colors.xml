@@ -9,4 +9,5 @@
 
     <!-- Primary dark color for the editor -->
     <color name="editorColorPrimaryDark">#673AB7</color>
+    <color name="colorWhite">#fff</color>
 </resources>

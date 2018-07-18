@@ -12,11 +12,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
+import android.telecom.Call;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -133,7 +135,8 @@ LoaderManager.LoaderCallbacks<Cursor>{
         String priceString = mPriceEditText.getText().toString().trim();
         String quantityString = mQuantityEditText.getText().toString().trim();
         String supplierNameString = mSupplierNameEditText.getText().toString().trim();
-        String supplierPhoneNumberString = mSupplierPhoneNumberEditText.getText().toString().trim();
+        final String supplierPhoneNumberString = mSupplierPhoneNumberEditText.getText().toString().trim();
+
 
         // Check if this is supposed to be a new book
         // and check if all the fields in the editor are blank
@@ -177,6 +180,10 @@ LoaderManager.LoaderCallbacks<Cursor>{
         }
         values.put(BookEntry.COLUMN_SUPPLIER_PHONE_NUMBER, supplierPhoneNumber);
 
+        /**
+         * Call button for the ACTION_CALL intent
+         */
+
         //  Determine if this is s new or existing book by checking if mCurrentBookUri is null or not
         if(mCurrentBookUri == null) {
             // This is a NEW book, so insert a new book into the provider,
@@ -211,6 +218,7 @@ LoaderManager.LoaderCallbacks<Cursor>{
                             Toast.LENGTH_SHORT).show();
                 }
             }
+
         }
 
             @Override
@@ -430,7 +438,6 @@ LoaderManager.LoaderCallbacks<Cursor>{
         alertDialog.show();
 
 }
-
 /**
  * Perform the deletion of the pet in the database.
  */
