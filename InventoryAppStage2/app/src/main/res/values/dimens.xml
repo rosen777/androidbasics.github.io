@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <!-- Common margin value equals to 8dp -->
+    <dimen name="margin_eight">8dp</dimen>
     <!-- Common margin value equals to 16dp -->
     <dimen name="margin_sixteen">16dp</dimen>
+
 </resources>

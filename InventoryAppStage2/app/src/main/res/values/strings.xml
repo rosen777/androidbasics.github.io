@@ -71,5 +71,6 @@
     <string name="editor_delete_book_failed">Error with deleting book</string>
     <string name="editor_delete_book_successful">Book deleted</string>
     <string name="call_button_text">Call</string>
+    <string name="quantity_number">0</string>
 
 </resources>

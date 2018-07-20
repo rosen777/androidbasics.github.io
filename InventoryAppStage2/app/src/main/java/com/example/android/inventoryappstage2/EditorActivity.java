@@ -68,9 +68,24 @@ public class EditorActivity extends AppCompatActivity implements
     private EditText mSupplierPhoneNumberEditText;
 
     /**
+     * Button for increasing quantity
+     */
+    ImageButton mIncrease = findViewById(R.id.increment);
+
+    /**
+     * Button for decreasing quantity
+     */
+    ImageButton mDecrease = findViewById(R.id.decrement);
+
+    /**
      * String for the LOG_TAG
      */
     private static final String LOG_TAG = EditorActivity.class.getSimpleName();
+
+    /**
+     * The initial quantity value is declared
+     */
+    private int givenQuantity;
 
     /**
      * A global constant for the call-phone permission code
@@ -138,8 +153,74 @@ public class EditorActivity extends AppCompatActivity implements
         mProductNameEditText.setOnTouchListener(mTouchListener);
         mPriceEditText.setOnTouchListener(mTouchListener);
         mQuantityEditText.setOnTouchListener(mTouchListener);
+        mIncrease.setOnTouchListener(mTouchListener);
+        mDecrease.setOnTouchListener(mTouchListener);
         mSupplierNameEditText.setOnTouchListener(mTouchListener);
         mSupplierPhoneNumberEditText.setOnTouchListener(mTouchListener);
+
+        // The callButton is declared
+        Button callButton = findViewById(R.id.call_button);
+
+        /**
+         * Call button for the ACTION_CALL intent
+         */
+
+        callButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String supplierPhoneNumberString = mSupplierPhoneNumberEditText.getText().toString().trim();
+
+                checkForPhonePermission(view);
+
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:" + supplierPhoneNumberString));
+                startActivity(callIntent);
+            }
+        });
+
+        /**
+         * The method to increase the quantity
+         */
+
+        mIncrease.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+
+              String quantity = mQuantityEditText.getText().toString();
+              if (TextUtils.isEmpty(quantity)) {
+
+                  Toast.makeText(EditorActivity.this, "The quantity cannot be empty", Toast.LENGTH_SHORT);
+                  return;
+              } else {
+                  givenQuantity = Integer.parseInt(quantity);
+                  mQuantityEditText.setText(String.valueOf(givenQuantity + 1));
+              }
+          }
+      });
+
+        /**
+         * The method to decrease the quantity
+         */
+        mDecrease.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String quantity = mQuantityEditText.getText().toString();
+                if(TextUtils.isEmpty(quantity)) {
+                    Toast.makeText(EditorActivity.this, "The quantity cannot be empty", Toast.LENGTH_SHORT);
+                    return;
+                } else {
+                    givenQuantity = Integer.parseInt(quantity);
+                    // To validate if quantity is greater
+                    if((givenQuantity - 1) >=0) {
+                    mQuantityEditText.setText(String.valueOf(givenQuantity - 1));
+                    } else {
+                    Toast.makeText(EditorActivity.this, "The quantity cannot be empty", Toast.LENGTH_SHORT);
+                    return;
+                    }
+                }
+            }
+        });
 
     }
 
@@ -196,8 +277,7 @@ public class EditorActivity extends AppCompatActivity implements
         // Check if this is supposed to be a new book
         // and check if all the fields in the editor are blank
         if (mCurrentBookUri == null &&
-                TextUtils.isEmpty(productNameString) && TextUtils.isEmpty(priceString) &&
-                TextUtils.isEmpty(quantityString) && TextUtils.isEmpty(supplierNameString) &&
+                TextUtils.isEmpty(productNameString) && TextUtils.isEmpty(priceString) && TextUtils.isEmpty(supplierNameString) &&
                 TextUtils.isEmpty(supplierPhoneNumberString)) {
             // Since no fields were modified, we can return early without creating a new pet.
             // No need to create ContentValues and no need to do any ContentProvider operations
@@ -212,14 +292,13 @@ public class EditorActivity extends AppCompatActivity implements
         // If the price is not provided by the user, don't try to parse the string into an
         // integer value
         int price = 0;
+        int quantity = 0;
+
         if (!TextUtils.isEmpty(priceString)) {
             price = Integer.parseInt(priceString);
         }
         values.put(BookEntry.COLUMN_PRICE, price);
 
-        // If the quantity is not provided by the user, don't try to parse the string into an
-        // integer value
-        int quantity = 0;
         if (!TextUtils.isEmpty(quantityString)) {
             quantity = Integer.parseInt(quantityString);
         }
@@ -234,26 +313,6 @@ public class EditorActivity extends AppCompatActivity implements
             supplierPhoneNumber = Integer.parseInt(supplierPhoneNumberString);
         }
         values.put(BookEntry.COLUMN_SUPPLIER_PHONE_NUMBER, supplierPhoneNumber);
-
-        // The callButton is declared
-        Button callButton = findViewById(R.id.call_button);
-
-        /**
-         * Call button for the ACTION_CALL intent
-         */
-
-        callButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                checkForPhonePermission(view);
-
-                Intent callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setData(Uri.parse("tel:" + supplierPhoneNumberString));
-                startActivity(callIntent);
-                }
-        });
-
 
 
         //  Determine if this is s new or existing book by checking if mCurrentBookUri is null or not
@@ -292,10 +351,7 @@ public class EditorActivity extends AppCompatActivity implements
             }
         }
 
-
-
-
-            @Override
+    @Override
             public boolean onCreateOptionsMenu(Menu menu) {
             // Inflate the menu options from the res/menu/menu_editor.xml file
             // This adds menu items to the app bar.
@@ -453,7 +509,7 @@ public class EditorActivity extends AppCompatActivity implements
                 mQuantityEditText.setText("");
                 mSupplierNameEditText.setText("");
                 mSupplierPhoneNumberEditText.setText("");
-                }
+    }
 
     /**
      * Show a dialog that warns the user there are unsaved changes that will be lost
@@ -538,4 +594,5 @@ private void deleteBook() {
         // Close the activity
         finish();
     }
+
 }
