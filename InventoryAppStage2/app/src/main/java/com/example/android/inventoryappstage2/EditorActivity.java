@@ -144,15 +144,31 @@ public class EditorActivity extends AppCompatActivity implements
     }
 
     private void checkForPhonePermission(View view) {
-        if(ActivityCompat.checkSelfPermission(EditorActivity.this,
+        if (ActivityCompat.checkSelfPermission(EditorActivity.this,
                 Manifest.permission.CALL_PHONE) !=
                 PackageManager.PERMISSION_GRANTED) {
             Log.d(LOG_TAG, "Permission NOT GRANTED!");
             ActivityCompat.requestPermissions(EditorActivity.this,
-                    new String[] {Manifest.permission.CALL_PHONE},
+                    new String[]{Manifest.permission.CALL_PHONE},
                     MY_PERMISSIONS_REQUEST_CALL_PHONE);
+
+            Toast.makeText(this, "Permission missing", Toast.LENGTH_SHORT).show();
         } else {
-            // Permission already granted. Enable the call button.
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    String supplierPhoneNumberString = mSupplierPhoneNumberEditText.getText().toString().trim();
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                    intent.setData(Uri.parse("tel:" + supplierPhoneNumberString));
+
+                    if (intent.resolveActivity(getPackageManager()) != null) {
+                        startActivity(intent);
+                    }
+
+                }
+            });
+
             enableCallButton(view);
         }
     }
@@ -219,10 +235,13 @@ public class EditorActivity extends AppCompatActivity implements
         }
         values.put(BookEntry.COLUMN_SUPPLIER_PHONE_NUMBER, supplierPhoneNumber);
 
+        // The callButton is declared
+        Button callButton = findViewById(R.id.call_button);
+
         /**
          * Call button for the ACTION_CALL intent
          */
-        Button callButton = findViewById(R.id.call_button);
+
         callButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
