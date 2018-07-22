@@ -96,6 +96,30 @@ public class InventoryActivity extends AppCompatActivity implements
      * For debugging purposes only
      */
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu options from the res/menu/menu_catalog.xml file.
+        // This adds menu items to the app bar.
+        getMenuInflater().inflate(R.menu.menu_inventory, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // User clicked on a menu options in the app bar overflow menu
+        switch(item.getItemId()) {
+            // Respond to a click on the "Insert dummy data" menu option
+            case R.id.action_insert_dummy_data:
+                insertBook();
+                return true;
+            // Respond to a click on the "Insert dummy data" menu option
+            case R.id.action_delete_all_entries:
+                deleteAllBooks();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     private void insertBook() {
 
@@ -121,30 +145,6 @@ public class InventoryActivity extends AppCompatActivity implements
             int rowsDeleted = getContentResolver().delete(BookEntry.CONTENT_URI, null, null);
             Log.v("InventoryActivity", rowsDeleted + " rows deleted from book database");
         }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu options from the res/menu/menu_catalog.xml file.
-        // This adds menu items to the app bar.
-        getMenuInflater().inflate(R.menu.menu_inventory, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // User clicked on a menu options in the app bar overflow menu
-        switch(item.getItemId()) {
-            // Respond to a click on the "Insert dummy data" menu option
-            case R.id.action_insert_dummy_data:
-                insertBook();
-                return true;
-                // Respond to a click on the "Insert dummy data" menu option
-            case R.id.action_delete_all_entries:
-                deleteAllBooks();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {

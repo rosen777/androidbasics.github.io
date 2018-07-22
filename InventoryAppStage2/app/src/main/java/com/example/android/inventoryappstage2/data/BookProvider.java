@@ -140,6 +140,22 @@ public class BookProvider extends ContentProvider {
 
     }
 
+    /**
+     * Return the MIME type of data for the content URI
+     */
+    @Override
+    public String getType(Uri uri) {
+        final int match = sUriMatcher.match(uri);
+        switch (match) {
+            case BOOKS:
+                return BookEntry.CONTENT_LIST_TYPE;
+            case BOOK_ID:
+                return BookEntry.CONTENT_ITEM_TYPE;
+            default:
+                throw new IllegalStateException("Unknown URI " + uri + " with match" + match);
+        }
+    }
+
     @Override
     public Uri insert(Uri uri, ContentValues contentValues) {
         final int match = sUriMatcher.match(uri);
@@ -166,13 +182,13 @@ public class BookProvider extends ContentProvider {
 
         // Check that the price is valid and that it is not greater than 0
         Integer price = values.getAsInteger(BookEntry.COLUMN_PRICE);
-        if (price == null || price < 0) {
+        if (price != null && price < 0) {
             throw new IllegalArgumentException("Book requires valid price.");
         }
 
         // Check that the quantity is valid and that it is greater than 0
         Integer quantity = values.getAsInteger(BookEntry.COLUMN_QUANTITY);
-        if (quantity == null || quantity < 0) {
+        if (quantity != null && quantity < 0) {
             throw new IllegalArgumentException("Book requires valid quantity.");
         }
 
@@ -184,7 +200,7 @@ public class BookProvider extends ContentProvider {
 
         // Check that the supplier phone number is valid and that it is greater than 0
         Integer supplierPhoneNumber = values.getAsInteger(BookEntry.COLUMN_SUPPLIER_PHONE_NUMBER);
-        if(supplierPhoneNumber == null || supplierPhoneNumber < 0) {
+        if(supplierPhoneNumber == null) {
             throw new IllegalArgumentException("A valid supplier phone number is required");
         }
 
@@ -205,6 +221,47 @@ public class BookProvider extends ContentProvider {
 
         // Return the new URI with the ID (of the newly inserted row) appended at the end
         return ContentUris.withAppendedId(uri, id);
+
+    }
+
+    /**
+     * Delete the data at the given selection and selection arguments.
+     */
+
+    public int delete(Uri uri, String selection, String[] selectionArgs) {
+        // Get writeable database
+        SQLiteDatabase database = mDbHelper.getWritableDatabase();
+
+        // Track the number of rows that were deleted
+        int rowsDeleted;
+
+        final int match = sUriMatcher.match(uri);
+        switch (match) {
+            case BOOKS:
+                // For case BOOKS:
+                // Delete all rows that match the selection and selection args
+                rowsDeleted = database.delete(BookEntry.TABLE_NAME, selection, selectionArgs);
+                break;
+            case BOOK_ID:
+                // For case BOOK_ID:
+                // Delete a single row given by the ID in the URI
+                selection = BookEntry._ID + "=?";
+                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+                rowsDeleted = database.delete(BookEntry.TABLE_NAME, selection, selectionArgs);
+                break;
+
+            default:
+                throw new IllegalArgumentException("Deletion is not supported for " + uri);
+        }
+
+        // If 1 or more rows were deleted, then notify all listeners that the data at the
+        // given URI has changed
+        if(rowsDeleted != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+
+        // Return the number of rows deleted
+        return rowsDeleted;
 
     }
 
@@ -255,7 +312,7 @@ public class BookProvider extends ContentProvider {
         // check that the price value is valid
         if(values.containsKey(BookEntry.COLUMN_PRICE)) {
             Integer price = values.getAsInteger(BookEntry.COLUMN_PRICE);
-            if(price == null || price < 0) {
+            if(price != null && price < 0) {
                 throw new IllegalArgumentException("Book requires valid price");
             }
         }
@@ -264,7 +321,7 @@ public class BookProvider extends ContentProvider {
         // check that the quantity value is valid
         if(values.containsKey(BookEntry.COLUMN_QUANTITY)) {
             Integer quantity = values.getAsInteger(BookEntry.COLUMN_QUANTITY);
-            if(quantity == null || quantity < 0) {
+            if(quantity !=null && quantity < 0) {
                 throw new IllegalArgumentException("Book requires valid quantity");
             }
         }
@@ -309,61 +366,5 @@ public class BookProvider extends ContentProvider {
             // Return the number of rows updated
             return rowsUpdated;
         }
+}
 
-        /**
-         * Delete the data at the given selection and selection arguments.
-         */
-
-        public int delete(Uri uri, String selection, String[] selectionArgs) {
-            // Get writeable database
-            SQLiteDatabase database = mDbHelper.getWritableDatabase();
-
-            // Track the number of rows that were deleted
-            int rowsDeleted;
-
-            final int match = sUriMatcher.match(uri);
-            switch (match) {
-                case BOOKS:
-                    // For case BOOKS:
-                    // Delete all rows that match the selection and selection args
-                    rowsDeleted = database.delete(BookEntry.TABLE_NAME, selection, selectionArgs);
-                    break;
-                case BOOK_ID:
-                    // For case BOOK_ID:
-                    // Delete a single row given by the ID in the URI
-                    selection = BookEntry._ID + "=?";
-                    selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
-                    rowsDeleted = database.delete(BookEntry.TABLE_NAME, selection, selectionArgs);
-                    break;
-
-                default:
-                    throw new IllegalArgumentException("Deletion is not supported for " + uri);
-            }
-
-            // If 1 or more rows were deleted, then notify all listeners that the data at the
-            // given URI has changed
-            if(rowsDeleted != 0) {
-                getContext().getContentResolver().notifyChange(uri, null);
-            }
-
-            // Return the number of rows deleted
-            return rowsDeleted;
-
-        }
-
-        /**
-         * Return the MIME type of data for the content URI
-         */
-        @Override
-        public String getType(Uri uri) {
-            final int match = sUriMatcher.match(uri);
-            switch(match) {
-                case BOOKS:
-                    return BookEntry.CONTENT_LIST_TYPE;
-                case BOOK_ID:
-                    return BookEntry.CONTENT_ITEM_TYPE;
-                default:
-                    throw new IllegalStateException("Unknown URI " + uri + " with match" + match);
-            }
-        }
-    }

@@ -8,15 +8,15 @@ import com.example.android.inventoryappstage2.data.BookContract.BookEntry;
 
 public class BookDbHelper extends SQLiteOpenHelper {
 
-    /** Name of the database file */
-
-    private static final String DATABASE_NAME = "books.db";
-
     /**
      * Database version. If you change the database schema, you must increment the database version.
      */
 
     public static final int DATABASE_VERSION = 1;
+
+    /** Name of the database file */
+
+    private static final String DATABASE_NAME = "books.db";
 
     /**
      * Constructs a new instance of {@link BookDbHelper}

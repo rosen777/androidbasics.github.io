@@ -44,24 +44,6 @@
     <string name="error_save">Error with saving book</string>
     <string name="new_row">New row ID</string>
     <string name="book_saved">Yay! Your book is saved with id:</string>
-    <string name="required_product_name">The product name field is required!</string>
-    <string name="enter_product_name">Enter product name!</string>
-    <string name="required_price">The price field is required!</string>
-    <string name="enter_price">Enter price!</string>
-    <string name="required_quantity">The quantity field is required!</string>
-    <string name="enter_quality">Enter quantity!</string>
-    <string name="required_supplier_name">The supplier name field is required!</string>
-    <string name="enter_supplier_name">Enter supplier name!</string>
-    <string name="required_supplier_phone_number">The supplier phone number field is required!</string>
-    <string name="enter_supplier_phone_number">Enter supplier phone number!</string>
-    <string name="editor_null_values">Please, enter values for product name, price, quantity, supplier name, and supplier phone number</string>
-    <string name="empty_view_title_text">Fancy a good read?</string>
-    <string name="empty_view_subtitle_text">Add a book or two to get started</string>
-    <string name="editor_update_book_failed">Error with updating book</string>
-    <string name="editor_update_book_successful">Book updated</string>
-    <string name="editor_activity_title_edit_product">Edit a product</string>
-    <string name="editor_insert_book_failed">Error with inserting book</string>
-    <string name="editor_insert_book_successful">Book updated</string>
     <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
     <string name="discard">Discard</string>
     <string name="keep_editing">Keep Editing</string>
@@ -72,5 +54,48 @@
     <string name="editor_delete_book_successful">Book deleted</string>
     <string name="call_button_text">Call</string>
     <string name="quantity_number">0</string>
+
+    <!-- Empty View Title and Subtitle -->
+
+    <string name="empty_view_title_text">Fancy a good read?</string>
+
+    <string name="empty_view_subtitle_text">Add a book or two to get started</string>
+
+    <!-- Editor Activity -->
+    <string name="editor_null_values">Please, enter values for product name, price, quantity, supplier name, and supplier phone number</string>
+    <string name="editor_update_book_failed">Error with updating book</string>
+    <string name="editor_update_book_successful">Book updated</string>
+    <string name="editor_activity_title_edit_product">Edit a product</string>
+    <string name="editor_insert_book_failed">Error with inserting book</string>
+    <string name="editor_insert_book_successful">Book updated</string>
+    <string name="required_product_name">The product name field is required!</string>
+    <string name="enter_product_name">Enter product name!</string>
+    <string name="required_price">The price field is required!</string>
+    <string name="enter_price">Enter price!</string>
+    <string name="required_quantity">The quantity field is required!</string>
+    <string name="enter_quality">Enter quantity!</string>
+    <string name="required_supplier_name">The supplier name field is required!</string>
+    <string name="enter_supplier_name">Enter supplier name!</string>
+    <string name="required_supplier_phone_number">The supplier phone number field is required!</string>
+    <string name="enter_supplier_phone_number">Enter supplier phone number!</string>
+
+    <!-- Empty fields in the Editor Activity -->
+
+    <string name="editor_empty_product_name_field">The product name field cannot be empty.</string>
+
+    <string name="editor_empty_price_field">The price field cannot be empty.</string>
+
+    <string name="editor_empty_quantity_field">The quantity field cannot be empty.</string>
+
+    <string name="editor_empty_supplier_name_field">The supplier name field cannot be empty.</string>
+
+    <string name="editor_empty_supplier_phone_number_field">The supplier phone number field cannot be empty.</string>
+
+    <!-- Negative fields in the Editor Activity -->
+
+    <string name="editor_negative_quantity_field">The quantity field cannot be negative.</string>
+    <string name="plus">plus</string>
+    <string name="minus">minus</string>
+
 
 </resources>

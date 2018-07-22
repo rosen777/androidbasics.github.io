@@ -68,16 +68,6 @@ public class EditorActivity extends AppCompatActivity implements
     private EditText mSupplierPhoneNumberEditText;
 
     /**
-     * Button for increasing quantity
-     */
-    ImageButton mIncrease = findViewById(R.id.increment);
-
-    /**
-     * Button for decreasing quantity
-     */
-    ImageButton mDecrease = findViewById(R.id.decrement);
-
-    /**
      * String for the LOG_TAG
      */
     private static final String LOG_TAG = EditorActivity.class.getSimpleName();
@@ -147,6 +137,16 @@ public class EditorActivity extends AppCompatActivity implements
         mSupplierNameEditText = findViewById(R.id.edit_supplier_name);
         mSupplierPhoneNumberEditText = findViewById(R.id.edit_supplier_phone_number);
 
+        /**
+         * Button for increasing quantity
+         */
+        ImageButton mIncrease = findViewById(R.id.increment);
+
+        /**
+         * Button for decreasing quantity
+         */
+        ImageButton mDecrease = findViewById(R.id.decrement);
+
         // Setup OnTouchListeners on all the input fields, so we can determine if the user
         // has touched or modified them. This will let us know if there are unsaved changes
         // or not, if the user tries to leave the editor without saving
@@ -184,20 +184,20 @@ public class EditorActivity extends AppCompatActivity implements
          */
 
         mIncrease.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
 
-              String quantity = mQuantityEditText.getText().toString();
-              if (TextUtils.isEmpty(quantity)) {
+                String quantity = mQuantityEditText.getText().toString();
+                if (TextUtils.isEmpty(quantity)) {
+                    Toast.makeText(EditorActivity.this, R.string.editor_empty_quantity_field, Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    givenQuantity = Integer.parseInt(quantity);
+                    mQuantityEditText.setText(String.valueOf(givenQuantity + 1));
+                }
+            }
+        });
 
-                  Toast.makeText(EditorActivity.this, "The quantity cannot be empty", Toast.LENGTH_SHORT);
-                  return;
-              } else {
-                  givenQuantity = Integer.parseInt(quantity);
-                  mQuantityEditText.setText(String.valueOf(givenQuantity + 1));
-              }
-          }
-      });
 
         /**
          * The method to decrease the quantity
@@ -206,22 +206,21 @@ public class EditorActivity extends AppCompatActivity implements
             @Override
             public void onClick(View v) {
                 String quantity = mQuantityEditText.getText().toString();
-                if(TextUtils.isEmpty(quantity)) {
-                    Toast.makeText(EditorActivity.this, "The quantity cannot be empty", Toast.LENGTH_SHORT);
+                if (TextUtils.isEmpty(quantity)) {
+                    Toast.makeText(EditorActivity.this, R.string.editor_empty_quantity_field, Toast.LENGTH_SHORT).show();
                     return;
                 } else {
                     givenQuantity = Integer.parseInt(quantity);
-                    // To validate if quantity is greater
-                    if((givenQuantity - 1) >=0) {
-                    mQuantityEditText.setText(String.valueOf(givenQuantity - 1));
+                    // to validate if quantity is greater than =
+                    if ((givenQuantity - 1) >= 0) {
+                        mQuantityEditText.setText(String.valueOf(givenQuantity - 1));
                     } else {
-                    Toast.makeText(EditorActivity.this, "The quantity cannot be empty", Toast.LENGTH_SHORT);
-                    return;
+                        Toast.makeText(EditorActivity.this, R.string.editor_negative_quantity_field, Toast.LENGTH_SHORT).show();
+                        return;
                     }
                 }
             }
         });
-
     }
 
     private void checkForPhonePermission(View view) {
@@ -262,7 +261,31 @@ public class EditorActivity extends AppCompatActivity implements
     }
 
 
+    /**
+     * This method is called when the back button is pressed.
+     */
+    @Override
+    public void onBackPressed() {
+        // If the book hasn't changes, continue with handling back button press
+        if (!mBookHasChanged) {
+            super.onBackPressed();
+            return;
+        }
 
+        // Otherwise if there are unsaved changes, setup a dialog to warn the user.
+        // Create a click listener to handle the user confirming that changes should be discarded.
+        DialogInterface.OnClickListener discardButtonClickListener =
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // User clicked "Discard" button, close the current activity.
+                        finish();
+                    }
+                };
+
+        // Show dialog that there are unsaved changes
+        showUnsavedChangesDialog(discardButtonClickListener);
+    }
 
     private void saveBook() {
         // Read from input fields
@@ -277,79 +300,89 @@ public class EditorActivity extends AppCompatActivity implements
         // Check if this is supposed to be a new book
         // and check if all the fields in the editor are blank
         if (mCurrentBookUri == null &&
-                TextUtils.isEmpty(productNameString) && TextUtils.isEmpty(priceString) && TextUtils.isEmpty(quantityString)
-                && TextUtils.isEmpty(supplierNameString) && TextUtils.isEmpty(supplierPhoneNumberString)) {
-            // Since no fields were modified, we can return early without creating a new pet.
-            // No need to create ContentValues and no need to do any ContentProvider operations
+                TextUtils.isEmpty(productNameString) && TextUtils.isEmpty(priceString) &&
+                TextUtils.isEmpty(quantityString) && TextUtils.isEmpty(supplierNameString) &&
+                TextUtils.isEmpty(supplierPhoneNumberString)) {
+            Toast.makeText(this, "Please, fill in the blank fields.", Toast.LENGTH_SHORT).show();
+            // Since no fields were modified, we can return early without creating a new books product.
             return;
         }
+
+        if(TextUtils.isEmpty(productNameString)) {
+            mProductNameEditText.setError(getString(R.string.editor_empty_product_name_field));
+            return;
+        }
+
+        if(TextUtils.isEmpty(priceString)) {
+            mPriceEditText.setError(getString(R.string.editor_empty_price_field));
+            return;
+        }
+
+        if(TextUtils.isEmpty(quantityString)) {
+            mQuantityEditText.setError(getString(R.string.editor_empty_quantity_field));
+            return;
+        }
+
+        if(TextUtils.isEmpty(supplierNameString)) {
+            mSupplierNameEditText.setError(getString(R.string.editor_empty_quantity_field));
+            return;
+        }
+
+        if(TextUtils.isEmpty(supplierPhoneNumberString)) {
+            mSupplierPhoneNumberEditText.setError(getString(R.string.editor_empty_supplier_phone_number_field));
+            return;
+        }
+
+
 
         // Create a ContentValues object where column names are the keys,
         // and book attributes from the editor are the values.
         ContentValues values = new ContentValues();
         values.put(BookEntry.COLUMN_PRODUCT_NAME, productNameString);
-
-        // If the price is not provided by the user, don't try to parse the string into an
-        // integer value
-        int price = 0;
-        int quantity = 0;
-
-        if (!TextUtils.isEmpty(priceString)) {
-            price = Integer.parseInt(priceString);
-        }
-        values.put(BookEntry.COLUMN_PRICE, price);
-
-        if (!TextUtils.isEmpty(quantityString)) {
-            quantity = Integer.parseInt(quantityString);
-        }
-        values.put(BookEntry.COLUMN_QUANTITY, quantity);
-
+        values.put(BookEntry.COLUMN_PRICE, priceString);
+        values.put(BookEntry.COLUMN_QUANTITY, quantityString);
+        values.put(BookEntry.COLUMN_SUPPLIER_PHONE_NUMBER, supplierPhoneNumberString);
         values.put(BookEntry.COLUMN_SUPPLIER_NAME, supplierNameString);
 
-        // If the supplier phone number is not provided by the user, don't try to parse the string into an
-        // integer value
-        int supplierPhoneNumber = 8675309;
-        if (!TextUtils.isEmpty(supplierPhoneNumberString)) {
-            supplierPhoneNumber = Integer.parseInt(supplierPhoneNumberString);
-        }
-        values.put(BookEntry.COLUMN_SUPPLIER_PHONE_NUMBER, supplierPhoneNumber);
-
-
-        //  Determine if this is s new or existing book by checking if mCurrentBookUri is null or not
+    //  Determine if this is s new or existing book by checking if mCurrentBookUri is null or not
         if(mCurrentBookUri == null) {
-            // This is a NEW book, so insert a new book into the provider,
-            // returning the content URI for the new pet.
-            Uri newUri = getContentResolver().insert(BookEntry.CONTENT_URI, values);
+        // This is a NEW book, so insert a new book into the provider,
+        // returning the content URI for the new pet.
+        Uri newUri = getContentResolver().insert(BookEntry.CONTENT_URI, values);
 
-            // Show a toast message depending on whether or not the insertion was successful.
-            if(newUri == null) {
-                // If the new content URI is null, then there was successful
-                Toast.makeText(this, getString(R.string.editor_insert_book_failed),
-                        Toast.LENGTH_SHORT).show();
-            } else {
-                // Otherwise, the insertion was successful and we can display a toast
-                Toast.makeText(this, getString(R.string.editor_insert_book_successful),
-                        Toast.LENGTH_SHORT).show();
-                }
-            } else {
-                // Otherwise, this is an EXISTING book, so update the book with content URI; mCurrentBookUri
-                // and pass in the the new ContentValues. Pass in null for the selection and selection args
-                // because mCurrentBookUri will already identify the correct row in the database that
-                // we want to modify.
-                int rowsAffected = getContentResolver().update(mCurrentBookUri, values, null, null);
-
-                // Show a toast message depending on whether or not the update was successful.
-                if(rowsAffected == 0) {
-                    // If no rows were affected, then there was an error with an update.
-                    Toast.makeText(this, getString(R.string.editor_update_book_failed),
-                            Toast.LENGTH_SHORT).show();
-                }  else {
-                    // Otherwise, the update was successful and we can display a toast
-                    Toast.makeText(this, getString(R.string.editor_update_book_successful),
-                            Toast.LENGTH_SHORT).show();
-                }
-            }
+        // Show a toast message depending on whether or not the insertion was successful.
+        if(newUri == null) {
+            // If the new content URI is null, then there was successful
+            Toast.makeText(this, getString(R.string.editor_insert_book_failed),
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            // Otherwise, the insertion was successful and we can display a toast
+            Toast.makeText(this, getString(R.string.editor_insert_book_successful),
+                    Toast.LENGTH_SHORT).show();
         }
+
+        finish();
+
+    } else {
+            // Otherwise, this is an EXISTING book, so update the book with content URI; mCurrentBookUri
+            // and pass in the the new ContentValues. Pass in null for the selection and selection args
+            // because mCurrentBookUri will already identify the correct row in the database that
+            // we want to modify.
+            int rowsAffected = getContentResolver().update(mCurrentBookUri, values, null, null);
+
+            // Show a toast message depending on whether or not the update was successful.
+            if (rowsAffected == 0) {
+                // If no rows were affected, then there was an error with an update.
+                Toast.makeText(this, getString(R.string.editor_update_book_failed),
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                // Otherwise, the update was successful and we can display a toast
+                Toast.makeText(this, getString(R.string.editor_update_book_successful),
+                        Toast.LENGTH_SHORT).show();
+            }
+            finish();
+        }
+    }
 
     @Override
             public boolean onCreateOptionsMenu(Menu menu) {
@@ -383,8 +416,7 @@ public class EditorActivity extends AppCompatActivity implements
             case R.id.action_save:
                     // Save book to database
                     saveBook();
-                    //Exit activity
-                    finish();
+
                     return true;
             // Respond to a click on the "Delete" menu option
             case R.id.action_delete:
@@ -419,32 +451,6 @@ public class EditorActivity extends AppCompatActivity implements
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * This method is called when the back button is pressed.
-     */
-    @Override
-    public void onBackPressed() {
-        // If the book hasn't changes, continue with handling back button press
-        if (!mBookHasChanged) {
-            super.onBackPressed();
-            return;
-        }
-
-        // Otherwise if there are unsaved changes, setup a dialog to warn the user.
-        // Create a click listener to handle the user confirming that changes should be discarded.
-        DialogInterface.OnClickListener discardButtonClickListener =
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        // User clicked "Discard" button, close the current activity.
-                        finish();
-                    }
-                };
-
-        // Show dialog that there are unsaved changes
-        showUnsavedChangesDialog(discardButtonClickListener);
-    }
-
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         // Since the editor shows all book attributes, define a projection that contains
@@ -464,51 +470,110 @@ public class EditorActivity extends AppCompatActivity implements
                 null,
                 null,
                 null);
-        }
+    }
 
-        @Override
+    @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-            // Bail early if the cursor is null or there is less than 1 row in the cursor
-            if (cursor == null || cursor.getCount() < 1) {
-                return;
-            }
+        // Bail early if the cursor is null or there is less than 1 row in the cursor
+        if (cursor == null || cursor.getCount() < 1) {
+            return;
+        }
 
-            // Proceed with moving to the first row of the cursor and reading data from it
-            // (This should be the only row in the cursor)
-            if (cursor.moveToFirst()) {
-                // Find the columns of pet attributes that we're interested in
-                int productNameColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_PRODUCT_NAME);
-                int priceColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_PRICE);
-                int quantityColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_QUANTITY);
-                int supplierNameColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_SUPPLIER_NAME);
-                int supplierPhoneNumberColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_SUPPLIER_PHONE_NUMBER);
+        // Proceed with moving to the first row of the cursor and reading data from it
+        // (This should be the only row in the cursor)
+        if (cursor.moveToFirst()) {
+            // Find the columns of pet attributes that we're interested in
+            int productNameColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_PRODUCT_NAME);
+            int priceColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_PRICE);
+            int quantityColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_QUANTITY);
+            int supplierNameColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_SUPPLIER_NAME);
+            int supplierPhoneNumberColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_SUPPLIER_PHONE_NUMBER);
 
-                // Extract out the value from from the Cursor for the given column index
+            // Extract out the value from from the Cursor for the given column index
 
-                String productName = cursor.getString(productNameColumnIndex);
-                int price = cursor.getInt(priceColumnIndex);
-                int quantity = cursor.getInt(quantityColumnIndex);
-                String supplierName = cursor.getString(supplierNameColumnIndex);
-                int supplierPhoneNumber = cursor.getInt(supplierPhoneNumberColumnIndex);
+            String productName = cursor.getString(productNameColumnIndex);
+            int price = cursor.getInt(priceColumnIndex);
+            int quantity = cursor.getInt(quantityColumnIndex);
+            String supplierName = cursor.getString(supplierNameColumnIndex);
+            int supplierPhoneNumber = cursor.getInt(supplierPhoneNumberColumnIndex);
 
-                // Update the views on the screen with the values from the database
-                mProductNameEditText.setText(productName);
-                mPriceEditText.setText(Integer.toString(price));
-                mQuantityEditText.setText(Integer.toString(quantity));
-                mSupplierNameEditText.setText(supplierName);
-                mSupplierPhoneNumberEditText.setText(Integer.toString(supplierPhoneNumber));
+            // Update the views on the screen with the values from the database
+            mProductNameEditText.setText(productName);
+            mPriceEditText.setText(Integer.toString(price));
+            mQuantityEditText.setText(Integer.toString(quantity));
+            mSupplierNameEditText.setText(supplierName);
+            mSupplierPhoneNumberEditText.setText(Integer.toString(supplierPhoneNumber));
 
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        // If the loader is invalidated, clear out all the data from the input fields.
+        mProductNameEditText.setText("");
+        mPriceEditText.setText("");
+        mQuantityEditText.setText("");
+        mSupplierNameEditText.setText("");
+        mSupplierPhoneNumberEditText.setText("");
+    }
+
+    /**
+     * Perform the deletion of the pet in the database.
+     */
+    private void deleteBook() {
+// Only perform the delete if this is an existing book.
+        if(mCurrentBookUri != null) {
+            // Call the ContentResolver to delete the book at the given content URI.
+            // Pass in null for the selection and selection args because the mCurrenBookUri
+            // content URI already identifies the pet that we want.
+            int rowsDeleted = getContentResolver().delete(mCurrentBookUri, null, null);
+
+            // Show a toast message depending on whether or not the delete was successful.
+            if (rowsDeleted == 0) {
+                // If no rows were deleted, then there was an error with the delete.
+                Toast.makeText(this, getString(R.string.editor_delete_book_failed),
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                // Otherwise, the delete was successful and we can display a toast.
+                Toast.makeText(this, getString(R.string.editor_delete_book_successful),
+                        Toast.LENGTH_SHORT).show();
             }
         }
 
+        // Close the activity
+        finish();
+    }
+
+    /**
+     * Prompt the user to confirm that they want to delete this pet.
+     */
+    private void showDeleteConfirmationDialog() {
+        // Create an AlertDialog.Builder and set the message, and click listeners
+        // for the positive and negative buttons on the dialog.
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.delete_dialog_msg);
+        builder.setPositiveButton(R.string.delete,  new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked the "Delete" button, so delete the book.
+                deleteBook();
+            }
+        });
+
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
-            public void onLoaderReset(Loader<Cursor> loader) {
-                // If the loader is invalidated, clear out all the data from the input fields.
-                mProductNameEditText.setText("");
-                mPriceEditText.setText("");
-                mQuantityEditText.setText("");
-                mSupplierNameEditText.setText("");
-                mSupplierPhoneNumberEditText.setText("");
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked the "Cancel" button, so dismiss the dialog
+                // and continue editing the book.
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
     }
 
     /**
@@ -531,68 +596,12 @@ public class EditorActivity extends AppCompatActivity implements
                 // and continue editing the pet.
                 if(dialog != null) {
                     dialog.dismiss();
-        }
-    }
-});
-        // Create and show the AlertDialog
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-    }
-
-    /**
-     * Prompt the user to confirm that they want to delete this pet.
-     */
-    private void showDeleteConfirmationDialog() {
-        // Create an AlertDialog.Builder and set the message, and click listeners
-        // for the positive and negative buttons on the dialog.
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.delete_dialog_msg);
-        builder.setPositiveButton(R.string.delete,  new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // User clicked the "Delete" button, so delete the book.
-               deleteBook();
-            }
-    });
-        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // User clicked the "Cancel" button, so dismiss the dialog
-                // and continue editing the book.
-                if (dialog != null) {
-                    dialog.dismiss();
                 }
             }
         });
-
         // Create and show the AlertDialog
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
-
-}
-/**
- * Perform the deletion of the pet in the database.
- */
-private void deleteBook() {
-// Only perform the delete if this is an existing book.
-    if(mCurrentBookUri != null) {
-        // Call the ContentResolver to delete the book at the given content URI.
-        // Pass in null for the selection and selection args because the mCurrenBookUri
-        // content URI already identifies the pet that we want.
-        int rowsDeleted = getContentResolver().delete(mCurrentBookUri, null, null);
-
-        // Show a toast message depending on whether or not the delete was successful.
-        if (rowsDeleted == 0) {
-            // If no rows were deleted, then there was an error with the delete.
-            Toast.makeText(this, getString(R.string.editor_delete_book_failed),
-                    Toast.LENGTH_SHORT).show();
-        } else {
-                // Otherwise, the delete was successful and we can display a toast.
-                Toast.makeText(this, getString(R.string.editor_delete_book_successful),
-                        Toast.LENGTH_SHORT).show();
-            }
-        }
-
-        // Close the activity
-        finish();
     }
 
 }

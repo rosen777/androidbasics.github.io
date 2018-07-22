@@ -49,12 +49,13 @@
 
                 <ImageButton
                     android:id="@+id/decrement"
+                    android:contentDescription="@string/minus"
                     android:background="@color/colorWhite"
-                    android:src="@drawable/ic_minus_circle_outline_black_18dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/margin_sixteen"
                     android:layout_marginTop="@dimen/margin_sixteen"
+                    android:src="@drawable/ic_minus_circle_outline_black_18dp"
                     />
 
                 <!-- Product Quantity field -->
@@ -66,12 +67,13 @@
 
                 <ImageButton
                     android:id="@+id/increment"
+                    android:contentDescription="@string/plus"
                     android:background="@color/colorWhite"
-                    android:src="@drawable/ic_plus_circle_outline_black_18dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_sixteen"
                     android:layout_marginTop="@dimen/margin_sixteen"
+                    android:src="@drawable/ic_plus_circle_outline_black_18dp"
                     />
 
             </LinearLayout>

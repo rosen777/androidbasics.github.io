@@ -1,12 +1,17 @@
 package com.example.android.inventoryappstage2;
 
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.inventoryappstage2.data.BookContract.BookEntry;
 /**
@@ -52,11 +57,12 @@ public class BookCursorAdapter extends CursorAdapter {
      */
 
     @Override
-    public void bindView(View view, Context context, Cursor cursor) {
+    public void bindView(View view, final Context context, Cursor cursor) {
         // Find the individual views that we want to modify in the list item layout
         TextView productNameTextView = view.findViewById(R.id.product_name);
         TextView priceTextView = view.findViewById(R.id.price);
         TextView quantityTextView = view.findViewById(R.id.quantity);
+        ImageButton sellButton = view.findViewById(R.id.sell_button);
 
         // Find the columns of the book attributes that we're interested in
         int productNameColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_PRODUCT_NAME);
@@ -72,6 +78,40 @@ public class BookCursorAdapter extends CursorAdapter {
         productNameTextView.setText(productName);
         priceTextView.setText(price);
         quantityTextView.setText(quantity);
+
+        // Get the current quantity and make into an integer
+        String currentQuantityString = cursor.getString(quantityColumnIndex);
+        final int currentQuantity = Integer.valueOf(currentQuantityString);
+        // Get the rows from the table with the ID
+        final int productId = cursor.getInt(cursor.getColumnIndex(BookEntry._ID));
+
+        //Set up the decrement on the sell button
+        sellButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Set up if the current quantity is positive (currentQuantity > 0)
+                if(currentQuantity > 0) {
+
+                    // Decrease the quantity by 1
+                    int newQuantity = currentQuantity - 1;
+
+                    // Get the URI with the append of the ID for the row
+                    Uri quantityUri = ContentUris.withAppendedId(BookEntry.CONTENT_URI, productId);
+
+                    // Get the current value for quantity and update them with the new decreased quantity
+                    ContentValues values = new ContentValues();
+                    values.put(BookEntry.COLUMN_QUANTITY, newQuantity);
+                    context.getContentResolver().update(quantityUri, values, null, null);
+                }
+
+                // Add a Toast message stating that the quantity for this book ran out of stock
+                else {
+                    Toast.makeText(context, "Sorry, this book is out of stock! " +
+                            "\n Grab another good read.", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
 
     }
 
